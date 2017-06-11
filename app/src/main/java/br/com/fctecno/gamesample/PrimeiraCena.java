@@ -56,5 +56,10 @@ public class PrimeiraCena extends AGScene {
             }
         }
 
+        if(AGInputManager.vrTouchEvents.backButtonClicked()){
+            vrGameManager.setCurrentScene(1);
+            return;
+        }
+
     }
 }
