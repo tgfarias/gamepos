@@ -17,8 +17,8 @@ public class SplashScreenCena extends AGScene {
 
     @Override
     public void init() {
-        setSceneBackgroundColor(0.0f, 0.0f, 0.0f);
-        tempo = new AGTimer(3000);
+        setSceneBackgroundColor(0.0f, 0.1f, 0.1f);
+        tempo = new AGTimer(2000);
 
     }
 

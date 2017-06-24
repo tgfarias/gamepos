@@ -1,11 +1,12 @@
 package br.com.fctecno.gamesample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import br.com.fctecno.andgraph.AGActivityGame;
+import br.com.fctecno.andgraph.AGGameManager;
 
 public class PrincipalActivity extends AGActivityGame{
+
 
 
     @Override
@@ -13,11 +14,12 @@ public class PrincipalActivity extends AGActivityGame{
 
         super.onCreate(savedInstanceState);
 
-        init(this, false);
+        init(this, true);
 
         SplashScreenCena splash = new SplashScreenCena(this.vrManager);
         MenuCena menuCena = new MenuCena(this.vrManager);
         CreditosCena creditos = new CreditosCena(this.vrManager);
+        CenaJogo cena = new CenaJogo(this.vrManager);
         PrimeiraCena cena1 = new PrimeiraCena(this.vrManager);
         SegundaCena cena2 = new SegundaCena(this.vrManager);
 
@@ -25,6 +27,7 @@ public class PrincipalActivity extends AGActivityGame{
         vrManager.addScene(splash);
         vrManager.addScene(menuCena);
         vrManager.addScene(creditos);
+        vrManager.addScene(cena);
         vrManager.addScene(cena1);
         vrManager.addScene(cena2);
     }
