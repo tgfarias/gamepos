@@ -10,10 +10,12 @@ import br.com.fctecno.andgraph.AGSprite;
  * Created by root on 11/06/17.
  */
 
+
 public class MenuCena extends AGScene {
     AGSprite btnGame = null;
     AGSprite btnCredito = null;
     AGSprite btnFechar = null;
+    AGSprite planoFundo = null;
 
 
     MenuCena(AGGameManager gerenteJogo){
@@ -21,22 +23,27 @@ public class MenuCena extends AGScene {
     }
     @Override
     public void init() {
-        setSceneBackgroundColor(0.0f, 0.0f, 0.1f);
+        // Carrega a imagem de fundo 100x100 centro da tela
+        planoFundo = createSprite(R.drawable.bg_tela_principal_com_persons, 1, 1);
+        planoFundo.setScreenPercent(100, 100);
+        planoFundo.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
+        planoFundo.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
 
-        btnGame = this.createSprite(R.drawable.btnplay, 1,1);
+
+        btnGame = this.createSprite(R.drawable.btn_jogar, 1,1);
         btnGame.setScreenPercent(20, 10);
         btnGame.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
-        btnGame.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
+        btnGame.vrPosition.setY(AGScreenManager.iScreenHeight / 3);
 
-        btnCredito = this.createSprite(R.drawable.btncreditos, 1,1);
+        btnCredito = this.createSprite(R.drawable.btn_creditos, 1,1);
         btnCredito.setScreenPercent(20, 10);
-        btnCredito.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
+        btnCredito.vrPosition.setX(AGScreenManager.iScreenWidth / 6);
         btnCredito.vrPosition.setY(AGScreenManager.iScreenHeight / 3);
 
-        btnFechar = this.createSprite(R.drawable.btnsair, 1,1);
+        btnFechar = this.createSprite(R.drawable.btn_sair, 1,1);
         btnFechar.setScreenPercent(20, 10);
-        btnFechar.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
-        btnFechar.vrPosition.setY(AGScreenManager.iScreenHeight / 6);
+        btnFechar.vrPosition.setX((float) (AGScreenManager.iScreenWidth / 1.2));
+        btnFechar.vrPosition.setY(AGScreenManager.iScreenHeight / 3);
 
     }
 
@@ -67,7 +74,8 @@ public class MenuCena extends AGScene {
             }
             if(btnFechar.collide(AGInputManager.vrTouchEvents.getLastPosition()))
             {
-                vrGameManager.vrActivity.finish();
+                vrGameManager.setCurrentScene(6);
+                // vrGameManager.vrActivity.finish();
             }
         }
     }

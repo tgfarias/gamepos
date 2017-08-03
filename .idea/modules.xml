@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/andgraph/andgraph.iml" filepath="$PROJECT_DIR$/andgraph/andgraph.iml" />
+      <module fileurl="file://$PROJECT_DIR$/andgraph/andgraph.iml" filepath="$PROJECT_DIR$/andgraph/andgraph.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gamepos.iml" filepath="$PROJECT_DIR$/gamepos.iml" />
       <module fileurl="file://$PROJECT_DIR$/gamepos.iml" filepath="$PROJECT_DIR$/gamepos.iml" />
     </modules>
   </component>

@@ -17,18 +17,17 @@ public class PrincipalActivity extends AGActivityGame{
         init(this, true);
 
         SplashScreenCena splash = new SplashScreenCena(this.vrManager);
+        SplashScreenCenaSair splashsair = new SplashScreenCenaSair(this.vrManager);
         MenuCena menuCena = new MenuCena(this.vrManager);
         CreditosCena creditos = new CreditosCena(this.vrManager);
         CenaJogo cena = new CenaJogo(this.vrManager);
-        PrimeiraCena cena1 = new PrimeiraCena(this.vrManager);
-        SegundaCena cena2 = new SegundaCena(this.vrManager);
+
 
 
         vrManager.addScene(splash);
         vrManager.addScene(menuCena);
         vrManager.addScene(creditos);
         vrManager.addScene(cena);
-        vrManager.addScene(cena1);
-        vrManager.addScene(cena2);
+        vrManager.addScene(splashsair);
     }
 }

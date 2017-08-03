@@ -34,7 +34,7 @@ public class CenaJogo extends AGScene {
     AGSprite lula = null;
     AGSprite fimJogo = null;
     AGSprite[] seguranca = new AGSprite[7];
-
+    AGSprite btnVoltar = null;
 
     boolean bPausa = false;
 
@@ -61,6 +61,13 @@ public class CenaJogo extends AGScene {
         barraSuperior.vrPosition.fX = AGScreenManager.iScreenWidth / 2;
         barraSuperior.vrPosition.fY = AGScreenManager.iScreenHeight - barraSuperior.getSpriteHeight() / 2;
         barraSuperior.bAutoRender = false; // Motor não desenha automaticamente
+
+        btnVoltar = this.createSprite(R.drawable.btnvoltar, 1,1);
+        btnVoltar.setScreenPercent(20, 10);
+        // btnVoltar.vrPosition.fY = barraSuperior.vrPosition.fY;
+        btnVoltar.vrPosition.setX(AGScreenManager.iScreenWidth - btnVoltar.getSpriteWidth()/2);
+        btnVoltar.vrPosition.setY(barraSuperior.vrPosition.fY);
+        btnVoltar.bAutoRender = false;
 
         lula = createSprite(R.drawable.lula, 1, 1);
         lula.setScreenPercent(20,12);
@@ -185,6 +192,7 @@ public class CenaJogo extends AGScene {
         {
             placar[pos].render();
         }
+        btnVoltar.render();
     }
 
     @Override
@@ -202,7 +210,7 @@ public class CenaJogo extends AGScene {
         if(AGInputManager.vrTouchEvents.backButtonClicked()){
             //vrGameManager.setCurrentScene(1);
             //return;
-            bPausa = !bPausa;
+            //bPausa = !bPausa;
         }
         if(bPausa == false) {
             this.atualizaMovimentoMoro();
@@ -409,23 +417,27 @@ public class CenaJogo extends AGScene {
     }
 
     private void atualizaBalas(){
+        float aux = 25.0f;
         for (AGSprite bala :  vetorTiros) {
 
             bala.vrPosition.fY += 10;
 
             //BALA SAIU DA TELA
+
             if(bala.vrPosition.fY > AGScreenManager.iScreenHeight + bala.getSpriteHeight() / 2)
             {
+                bala.fAngle = aux;
                 bala.bRecycled = true;
                 bala.bVisible = false;
             }
+            aux += 25.0f;
         }
     }
 
     private void criaTiro(){
 
         tempoBala.update();
-
+        float ang = 0.0f;
         if(AGInputManager.vrTouchEvents.screenClicked()){
             if(!tempoBala.isTimeEnded())
             {
@@ -437,21 +449,20 @@ public class CenaJogo extends AGScene {
                 {
                     bala.bRecycled = false;
                     bala.bVisible = true;
+                    bala.fAngle = ang;
 
-                    bala.vrPosition.fX = canhao.vrPosition.fX;
-                    bala.vrPosition.fY =
-                            canhao.getSpriteWidth() /3 +
-                                    bala.getSpriteHeight() / 2;
+                    bala.vrPosition.fX = canhao.vrPosition.fX + 60;
+                    bala.vrPosition.fY = canhao.getSpriteWidth() / 3 + bala.getSpriteHeight() / 2;
                     return;
                 }
+                ang += 30.0f;
             }
             AGSprite novaBala = createSprite(R.drawable.constituicao, 1, 1);
             novaBala.setScreenPercent(8,5);
-            novaBala.fAngle = 0.7f;
-            novaBala.vrPosition.fX = canhao.vrPosition.fX;
-            novaBala.vrPosition.fY =
-                    canhao.getSpriteWidth() / 3 +
-                            novaBala.getSpriteHeight() / 2;
+            novaBala.fAngle = ang;
+
+            novaBala.vrPosition.fX = canhao.vrPosition.fX + 60;
+            novaBala.vrPosition.fY = canhao.getSpriteWidth() / 3 + novaBala.getSpriteHeight() / 2;
             vetorTiros.add(novaBala);
         }
     }
