@@ -6,7 +6,6 @@ import br.com.fctecno.andgraph.AGGameManager;
 import br.com.fctecno.andgraph.AGInputManager;
 import br.com.fctecno.andgraph.AGScene;
 import br.com.fctecno.andgraph.AGScreenManager;
-import br.com.fctecno.andgraph.AGSoundEffect;
 import br.com.fctecno.andgraph.AGSoundManager;
 import br.com.fctecno.andgraph.AGSprite;
 import br.com.fctecno.andgraph.AGTimer;
@@ -32,7 +31,10 @@ public class CenaJogo extends AGScene {
 
     ArrayList<AGSprite> vetorTiros = null;
     ArrayList<AGSprite> vetorExplosoes = null;
-    AGSprite[] navios = new AGSprite[2];
+    AGSprite lula = null;
+    AGSprite fimJogo = null;
+    AGSprite[] seguranca = new AGSprite[7];
+
 
     boolean bPausa = false;
 
@@ -46,12 +48,12 @@ public class CenaJogo extends AGScene {
 
         vetorTiros = new ArrayList<AGSprite>();
         vetorExplosoes = new ArrayList<AGSprite>();
-        planoFundo = createSprite(R.drawable.textmar, 1, 1);
+        planoFundo = createSprite(R.drawable.bg, 1, 1);
         planoFundo.setScreenPercent(100,100);
         planoFundo.vrPosition.setX(AGScreenManager.iScreenWidth/2);
         planoFundo.vrPosition.setY(AGScreenManager.iScreenHeight /2 );
 
-        createSprite(R.drawable.bala, 1, 1).bVisible=false;// Carrega imagem na memoria
+        createSprite(R.drawable.constituicao, 1, 1).bVisible=false;// Carrega imagem na memoria
         createSprite(R.drawable.explosao, 4,2).bVisible = false; // carrega explosao na memoria
 
         barraSuperior = createSprite(R.drawable.barrasuperior, 1, 1); // sprite sem animação (1,1)
@@ -60,28 +62,90 @@ public class CenaJogo extends AGScene {
         barraSuperior.vrPosition.fY = AGScreenManager.iScreenHeight - barraSuperior.getSpriteHeight() / 2;
         barraSuperior.bAutoRender = false; // Motor não desenha automaticamente
 
-        navios[0] = createSprite(R.drawable.navio, 1, 1);
-        navios[0].setScreenPercent(20,12);
-        navios[0].iMirror = AGSprite.HORIZONTAL;
-        navios[0].vrDirection.fX = 1;
-        navios[0].vrPosition.fX = -navios[0].getSpriteWidth() / 2;
-        navios[0].vrPosition.fY = AGScreenManager.iScreenHeight -
-                navios[0].getSpriteHeight() / 2 - barraSuperior.getSpriteHeight();
+        lula = createSprite(R.drawable.lula, 1, 1);
+        lula.setScreenPercent(20,12);
+        lula.vrDirection.fX = 1;
+        lula.vrPosition.fX = -lula.getSpriteWidth() / 2;
+        lula.vrPosition.fY = AGScreenManager.iScreenHeight - lula.getSpriteHeight() / 2 - barraSuperior.getSpriteHeight();
 
-        navios[1] = createSprite(R.drawable.navio, 1, 1);
-        navios[1].setScreenPercent(20, 12);
-        navios[1].vrDirection.fX = -1;
 
-        navios[1].vrPosition.fX = AGScreenManager.iScreenWidth +
-                navios[1].getSpriteWidth() / 2;
+        seguranca[0] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[0].setScreenPercent(20,12);
+        //seguranca[0].iMirror = AGSprite.HORIZONTAL;
+        seguranca[0].vrDirection.fX = 1;
+        seguranca[0].vrPosition.fX = -seguranca[0].getSpriteWidth() / 4;
+        seguranca[0].vrPosition.fY = AGScreenManager.iScreenHeight -
+                seguranca[0].getSpriteHeight() / 2 - (2 * lula.getSpriteHeight());
 
-        navios[1].vrPosition.fY = navios[0].vrPosition.fY -
-                navios[1].getSpriteHeight();
+        seguranca[1] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[1].setScreenPercent(20, 12);
+        seguranca[1].vrDirection.fX = -1;
 
-        canhao = createSprite(R.drawable.canhao, 1, 1);
-        canhao.setScreenPercent(12, 20);
+        seguranca[1].vrPosition.fX = AGScreenManager.iScreenWidth +
+                seguranca[1].getSpriteWidth() / 4;
+
+        seguranca[1].vrPosition.fY = lula.vrPosition.fY -
+                seguranca[1].getSpriteHeight();
+
+        seguranca[2] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[2].setScreenPercent(20, 12);
+        seguranca[2].vrDirection.fX = -1;
+        seguranca[2].iMirror = AGSprite.HORIZONTAL;
+        seguranca[2].vrPosition.fX = AGScreenManager.iScreenWidth + AGScreenManager.iScreenWidth +
+                seguranca[2].getSpriteWidth() / 4;
+
+        seguranca[2].vrPosition.fY = lula.vrPosition.fY -
+                seguranca[2].getSpriteHeight();
+
+
+        seguranca[3] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[3].setScreenPercent(20, 12);
+        seguranca[3].vrDirection.fX = -1;
+
+        seguranca[3].vrPosition.fX = ( 3 * AGScreenManager.iScreenWidth) +
+                seguranca[3].getSpriteWidth() / 4;
+
+        seguranca[3].vrPosition.fY = lula.vrPosition.fY -
+                seguranca[3].getSpriteHeight();
+
+        //Segunda faixa de seguranças
+
+        seguranca[4] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[4].setScreenPercent(20, 12);
+        seguranca[4].vrDirection.fX = -1;
+
+        seguranca[4].vrPosition.fX = ( 4 * AGScreenManager.iScreenWidth) +
+                seguranca[4].getSpriteWidth() / 4;
+
+        seguranca[4].vrPosition.fY = seguranca[0].vrPosition.fY -
+                seguranca[4].getSpriteHeight();
+
+
+        seguranca[5] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[5].setScreenPercent(20, 12);
+        seguranca[5].vrDirection.fX = -1;
+
+        seguranca[5].vrPosition.fX = ( 4 * AGScreenManager.iScreenWidth) +
+                seguranca[5].getSpriteWidth() / 4;
+
+        seguranca[5].vrPosition.fY = seguranca[0].vrPosition.fY -
+                seguranca[5].getSpriteHeight();
+
+        seguranca[6] = createSprite(R.drawable.advogadoperson, 1, 1);
+        seguranca[6].setScreenPercent(20, 12);
+        seguranca[6].vrDirection.fX = -1;
+
+        seguranca[6].vrPosition.fX = ( 4 * AGScreenManager.iScreenWidth) +
+                seguranca[6].getSpriteWidth() / 4;
+
+        seguranca[6].vrPosition.fY = seguranca[0].vrPosition.fY -
+                seguranca[6].getSpriteHeight();
+
+        canhao = createSprite(R.drawable.morocomconstituicao, 1, 1);
+        canhao.setScreenPercent(20, 20);
         canhao.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
         canhao.vrPosition.setY(canhao.getSpriteHeight() / 2);
+
 
         //config sprite placa
         int multiplicador = 1;
@@ -105,7 +169,11 @@ public class CenaJogo extends AGScene {
         efeitoExplosao = AGSoundManager.vrSoundEffects.loadSoundEffect("explodenavio.wav");
         tempoBala = new AGTimer(300);
 
-
+        fimJogo = createSprite(R.drawable.morocomconstituicao, 1, 1);
+        fimJogo.setScreenPercent(60,60);
+        fimJogo.vrPosition.setX(AGScreenManager.iScreenWidth / 2);
+        fimJogo.vrPosition.setY(AGScreenManager.iScreenHeight / 2);
+        fimJogo.bVisible=false;
 
     }
     //Sobreescrita o metodo render para alterar a ordem de desenho
@@ -137,11 +205,13 @@ public class CenaJogo extends AGScene {
             bPausa = !bPausa;
         }
         if(bPausa == false) {
-            this.atualizaMovimentoCanhao();
+            this.atualizaMovimentoMoro();
             this.atualizaBalas();
+            this.atualizaPosicaoLula();
             this.criaTiro();
-            this.atualizaNavios();
-            this.verificaColisaoBalasNavios();
+            this.atualizaPosicoes();
+            this.verificaColisaoBalasSegurancas();
+            this.verificaColisaoComLula();
             this.atualizaExplosoes();
             this.atualizaPlacar();
         }
@@ -167,33 +237,60 @@ public class CenaJogo extends AGScene {
         vetorExplosoes.add(novaExplosao);
     }
 
-    //atualizando a posicao dos navios
-    private void atualizaNavios(){
-        for (AGSprite navio : navios)
-        {
-            navio.vrPosition.fX +=  5 * navio.vrDirection.fX;
+    //movimentacao do lula
+    private void atualizaPosicaoLula(){
 
-            if(navio.vrDirection.fX == 1)
+        lula.vrPosition.fX +=  5 * lula.vrDirection.fX;
+
+            if(lula.vrDirection.fX == 1)
             {
-                if(navio.vrPosition.fX >=
-                        AGScreenManager.iScreenWidth +
-                                navio.getSpriteWidth() / 2)
+                if(lula.vrPosition.fX >=
+                        AGScreenManager.iScreenWidth //+
+                    //seg.getSpriteWidth() / 2
+                        )
                 {
-                    navio.iMirror = AGSprite.NONE;
-                    navio.vrDirection.fX = -1;
+                    lula.iMirror = AGSprite.NONE;
+                    lula.vrDirection.fX = -1;
                 }
             }
             else
             {
-                if(navio.vrPosition.fX <= -navio.getSpriteWidth() / 2 ){
-                    navio.iMirror = AGSprite.HORIZONTAL;
-                    navio.vrDirection.fX = 1;
+                if(lula.vrPosition.fX <= -lula.getSpriteWidth() / 2 ){
+                    lula.iMirror = AGSprite.HORIZONTAL;
+                    lula.vrDirection.fX = 1;
+                }
+            }
+
+    }
+
+    //atualizando a posicao dos navios
+    private void atualizaPosicoes(){
+        for (AGSprite seg : seguranca)
+        {
+            seg.vrPosition.fX +=  5 * seg.vrDirection.fX;
+
+            if(seg.vrDirection.fX == 1)
+            {
+                if(seg.vrPosition.fX >=
+                        AGScreenManager.iScreenWidth //+
+                                //seg.getSpriteWidth() / 2
+                        )
+                {
+                    seg.iMirror = AGSprite.NONE;
+                    seg.vrDirection.fX = -1;
+                }
+            }
+            else
+            {
+                if(seg.vrPosition.fX <= -seg.getSpriteWidth() / 2 ){
+                    seg.iMirror = AGSprite.HORIZONTAL;
+                    seg.vrDirection.fX = 1;
                 }
             }
         }
     }
 
-    private void atualizaMovimentoCanhao(){
+    private void atualizaMovimentoMoro(){
         //atualiza o tempo que estou medindo dentro deste time
         //atualizando o intervalo de tempo a ser medido
 
@@ -228,35 +325,87 @@ public class CenaJogo extends AGScene {
         }
     }
 
-    private void verificaColisaoBalasNavios(){
+    private void verificaColisaoBalasSegurancas(){
         for (AGSprite bala : vetorTiros){
             if(bala.bRecycled)
                 continue;
 
-            for (AGSprite navio : navios)
+            for (AGSprite seg : seguranca)
             {
-                if( bala.collide(navio)){
+                if( bala.collide(seg)){
 
                     tempPontuacao += 50;
-                    criaExplosao(navio.vrPosition.fX, navio.vrPosition.fY);
+                    criaExplosao(seg.vrPosition.fX, seg.vrPosition.fY);
                     bala.bRecycled = true;
                     bala.bVisible = false;
 
                     AGSoundManager.vrSoundEffects.play(efeitoExplosao);
-                    if(navio.vrDirection.fX == 1) {
-                        navio.vrDirection.fX = -1;
-                        navio.iMirror = AGSprite.NONE;
-                        navio.vrPosition.fX = AGScreenManager.iScreenWidth + navio.getSpriteWidth() / 2;
+                    if(seg.vrDirection.fX == 1) {
+                        seg.vrDirection.fX = -1;
+                        seg.iMirror = AGSprite.NONE;
+                        seg.vrPosition.fX = AGScreenManager.iScreenWidth + seg.getSpriteWidth() / 2;
                     }
                     else {
-                        navio.vrDirection.fX = 1;
-                        navio.iMirror = AGSprite.HORIZONTAL;
-                        navio.vrPosition.fX = -navio.getSpriteWidth();
+                        seg.vrDirection.fX = 1;
+                        seg.iMirror = AGSprite.HORIZONTAL;
+                        seg.vrPosition.fX = -seg.getSpriteWidth();
                     }
                     break;
                 }
             }
         }
+    }
+
+
+    private void verificaColisaoComLula(){
+        for (AGSprite bala : vetorTiros){
+            if(bala.bRecycled)
+                continue;
+
+            if( bala.collide(lula)){
+
+                tempPontuacao += 1000;
+                criaExplosao(lula.vrPosition.fX, lula.vrPosition.fY);
+                bala.bRecycled = false;
+                bala.bVisible = false;
+
+                AGSoundManager.vrSoundEffects.play(efeitoExplosao);
+//                if(lula.vrDirection.fX == 1) {
+//                    lula.vrDirection.fX = -1;
+//                    lula.iMirror = AGSprite.NONE;
+//                    lula.vrPosition.fX = AGScreenManager.iScreenWidth + lula.getSpriteWidth() / 2;
+//                }
+//                else {
+//                    lula.vrDirection.fX = 1;
+//                    lula.iMirror = AGSprite.HORIZONTAL;
+//                    lula.vrPosition.fX = -lula.getSpriteWidth();
+//                }
+
+                limparTela();
+                fimJogo.bVisible = true;
+                bPausa = true;
+                break;
+            }
+
+
+        }
+
+    }
+
+    private void limparTela()
+    {
+        for (AGSprite b : vetorTiros) {
+            b.bRecycled = false;
+            b.bVisible = false;
+        }
+
+        for (AGSprite seg : seguranca)
+        {
+            seg.bVisible =false;
+        }
+        canhao.bVisible = false;
+        lula.bVisible = false;
+
     }
 
     private void atualizaBalas(){
@@ -288,6 +437,7 @@ public class CenaJogo extends AGScene {
                 {
                     bala.bRecycled = false;
                     bala.bVisible = true;
+
                     bala.vrPosition.fX = canhao.vrPosition.fX;
                     bala.vrPosition.fY =
                             canhao.getSpriteWidth() /3 +
@@ -295,8 +445,9 @@ public class CenaJogo extends AGScene {
                     return;
                 }
             }
-            AGSprite novaBala = createSprite(R.drawable.bala, 1, 1);
+            AGSprite novaBala = createSprite(R.drawable.constituicao, 1, 1);
             novaBala.setScreenPercent(8,5);
+            novaBala.fAngle = 0.7f;
             novaBala.vrPosition.fX = canhao.vrPosition.fX;
             novaBala.vrPosition.fY =
                     canhao.getSpriteWidth() / 3 +
@@ -307,21 +458,9 @@ public class CenaJogo extends AGScene {
 
     private void atualizaPlacar(){
         if (tempPontuacao > 0){
-//            for (AGSprite digito : placar)
-//            {
-//                digito.bVisible = !digito.bVisible;
-//            }
             tempPontuacao--;
             pontuacao++;
         }
-//        else
-//        {
-//            for (AGSprite digito : placar)
-//            {
-//                digito.bVisible = true;
-//            }
-//        }
-
         placar[5].setCurrentAnimation(pontuacao % 10);
         placar[4].setCurrentAnimation((pontuacao % 100 ) / 10);
         placar[3].setCurrentAnimation((pontuacao % 1000 ) / 100);
